@@ -1,12 +1,38 @@
 //initial config
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+const session = require('express-session');
+const fileupload = require('express-fileupload');
+const fs = require('fs');
+const cors = require('cors');
+var path = require('path');
 
 const mongoose = require('mongoose')
-
 const Person = require('./models/Person')
 
-//forma de ler JSON / middlewares
+const port = 9200;
+
+app.use(session({secret: 'dbsdhbchsdcbjhscs25dc'}));
+app.use(express.json());
+app.use(fileupload({
+    useTempFiles: true,
+    tempFileDir: path.join(__dirname, 'temp')
+}));
+app.use(cors());
+
+app.get('/api', (req, res) => {
+    res.json({
+        name: 'Gabriel',
+        birthDate: '28/03/2002',
+        message: 'Dados recebidos do Backend com sucesso!'
+    });
+})
+
+app.listen(port, () => {
+    console.log('Rodando na porta 9200...');
+});
+
+/* //forma de ler JSON / middlewares
 
 app.use(
     express.urlencoded({
@@ -40,13 +66,10 @@ app.post('/person', async (req, res) => {
 
 //rota inicial / endpoint
 
-function(){gerador url uuid
-
-const urlFinal = gerador url uuid;
-app.get(`/${urlFinal}`, (req, res) => {
+app.get('/api', (req, res) => {
 
     //mostrar uma req
-    res.json({url: 'http://123abc-456def'})
+    res.json({person: {name: "Gabriel Fernandes", birthDate: "28/03/2002"}})
 })
 
 app.post('/', (req, res) => {
@@ -60,10 +83,12 @@ mongoose.connect(
     )
 .then(() => {
     console.log('Conectamos ao MongoDB!')
-    app.listen(3000)
+    app.listen(9000)
 })
 .catch(() => {
     console.log('ERROR!')
 })
 
 //mongodb+srv://GabrielGanji:01011010@myfirstapi.7vray.mongodb.net/?retryWrites=true&w=majority
+
+*/
