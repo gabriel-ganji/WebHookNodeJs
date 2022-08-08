@@ -22,7 +22,24 @@ app.use(cors());
 
 app.get("/api", (req, res) => {
   res.json({
-    message: "Hello World!",
+      headers: {
+          connection: "",
+          contentLength: "",
+          acceptEncoding: "",
+          host: "",
+          postmanToken: "",
+          accept: "",
+          userAgent: "",
+          contentType: ""
+      },
+      requestDetails: {
+          host: "",
+          date: "",
+          size: "",
+          id: ""
+      },
+      rawContent: ""
+
   });
 });
 
@@ -36,14 +53,25 @@ app.use(
 
 //rotas da API
  app.post("/PesonalAcess", async (req, res) => {
+    
     //req.body
-    const { id } = req.body;
+    const allRequest = req;
+     
+    //console.log('allRequest : ', allRequest);
+     
+
+    for (var [key, value] of allRequest) {
+        console.log(key, value);
+    };
+
+    const { hottok } = req.body;
 
     const PersonalId = {
-        id,
+        hottok,
     };
-     console.log("PersonalID Antes do TRY: ", PersonalId.id);
-     if (PersonalId.id !== undefined) {
+     
+     console.log("PersonalID Antes do TRY: ", PersonalId.hottok);
+     if (PersonalId.hottok !== undefined) {
         try {
             //criando dados
             await Personal.create(PersonalId);
@@ -58,7 +86,6 @@ app.use(
              message: "There is something wrong with your json object :("
          });
      }
-    
 
 });
 /*app.post("/PersonalAcess", async (req, res) => {
