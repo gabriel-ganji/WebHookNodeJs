@@ -70,8 +70,6 @@ app.use(
 
 //rota inicial / endpoint
 
-
-
 //entregar uma porta
 mongoose
   .connect(
