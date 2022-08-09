@@ -9,10 +9,10 @@ var path = require("path");
 
 const mongoose = require("mongoose");
 const Personal = require("./models/Personal");
-const credentialsMongoDB = require('./credentials/credentials.js');
 
+const {mongoDBcredentials, mongoDBconnection} =  require("./credentials/credentials");
 
-app.use(session({ secret: credentialsMongoDB["sessionSecret"] }));
+app.use(session({ secret: mongoDBconnection["sessionSecret"] }));
 app.use(express.json());
 app.use(
   fileupload({
@@ -61,10 +61,13 @@ app.get("/api", (req, res) => {
 
 //entregar uma porta
 mongoose
-  .connect(credentialsMongoDB["connectionMoongose"])
+  // .connect(credentialsMongoDB["connectionMoongose"])
+  .connect(
+    `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBconnection["cluster"]}.mongodb.net/?retryWrites=true&w=majority `
+  )
   .then(() => {
     console.log("Conectamos ao MongoDB!");
-    app.listen(credentialsMongoDB["connectionMoongosePort"]);
+    app.listen(mongoDBconnection["port"]);
   })
   .catch(() => {
     console.log(mongoose.connect);
