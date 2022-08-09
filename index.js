@@ -9,8 +9,10 @@ var path = require("path");
 
 const mongoose = require("mongoose");
 const Personal = require("./models/Personal");
+const credentialsMongoDB = require('./credentials/credentials.js');
 
-app.use(session({ secret: "dbsdhbchsdcbjhscs25dc" }));
+
+app.use(session({ secret: credentialsMongoDB["sessionSecret"] }));
 app.use(express.json());
 app.use(
   fileupload({
@@ -36,12 +38,9 @@ app.use(
 
 //rotas da API
 app.post("/PesonalAcess", async (req, res) => {
-  //req.body
   const { id } = req.body;
 
-  const PersonalId = {
-    id,
-  };
+  const PersonalId = {id,};
 
   try {
     //criando dados
@@ -62,13 +61,12 @@ app.get("/api", (req, res) => {
 
 //entregar uma porta
 mongoose
-  .connect(
-    "mongodb+srv://interships:y60TGJW5Q8cEJ3Tx@evermartmongodb.dbkte1c.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect(credentialsMongoDB["connectionMoongose"])
   .then(() => {
     console.log("Conectamos ao MongoDB!");
-    app.listen(9200);
+    app.listen(credentialsMongoDB["connectionMoongosePort"]);
   })
   .catch(() => {
+    console.log(mongoose.connect);
     console.log("ERROR!");
   });
