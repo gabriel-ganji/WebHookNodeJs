@@ -10,7 +10,7 @@ var path = require("path");
 const mongoose = require("mongoose");
 const Personal = require("./models/Personal");
 
-app.use(session({ secret: "dbsdhbchsdcbjhscs25dc" }));
+app.use(session({ secret: "testkey123" }));
 app.use(express.json());
 app.use(
   fileupload({
@@ -19,29 +19,6 @@ app.use(
   })
 );
 app.use(cors());
-
-app.get("/api", (req, res) => {
-  res.json({
-      headers: {
-          connection: "",
-          contentLength: "",
-          acceptEncoding: "",
-          host: "",
-          postmanToken: "",
-          accept: "",
-          userAgent: "",
-          contentType: ""
-      },
-      requestDetails: {
-          host: "",
-          date: "",
-          size: "",
-          id: ""
-      },
-      rawContent: ""
-
-  });
-});
 
 //forma de ler JSON / middlewares
 
@@ -54,28 +31,30 @@ app.use(
 //rotas da API
  app.post("/PesonalAcess", async (req, res) => {
     
-    //req.body
-    const allRequest = req;
-     
-    //console.log('allRequest : ', allRequest);
-     
+   const allRequest = req;
+        
+   const { hottok } = req.body;
+   
+   const rawHeaders = new Object();
 
-    for (var [key, value] of allRequest) {
-        console.log(key, value);
-    };
+   for (let i = 0; i < allRequest.rawHeaders.length; i=i+2) {
+     rawHeaders[(allRequest.rawHeaders[(i)])] = allRequest.rawHeaders[(i + 1)];
+   }
+   app.get("/api", (req, res) => {
+    //mostrar uma req
+    res.json({ rawHeaders });
+  });
+   //console.log('rawHeaders : ', rawHeaders);
 
-    const { hottok } = req.body;
-
-    const PersonalId = {
+    const Acess = {
         hottok,
     };
-     
-     console.log("PersonalID Antes do TRY: ", PersonalId.hottok);
-     if (PersonalId.hottok !== undefined) {
+
+     if (Acess.hottok !== undefined && typeof (Acess.hottok) == 'string') {
         try {
             //criando dados
-            await Personal.create(PersonalId);
-            res.status(201).json({ message: "Pessoa inserida com sucesso" });
+            await Personal.create(Acess);
+            res.status(201).json({ message: "Person data recorded. Sucess!" });
         } catch (error) {
             res.status(500).json({ error: error });
         }
@@ -88,24 +67,10 @@ app.use(
      }
 
 });
-/*app.post("/PersonalAcess", async (req, res) => {
-    const { id } = req.body;
-    const _result = await postUser(
-      id
-    );
-    if (_result && _result.error) {
-      res.status(_result.status).send(_result.message);
-    } else {
-      res.status(201).json(_result);
-    }
-  });*/  
 
 //rota inicial / endpoint
 
-app.get("/api", (req, res) => {
-  //mostrar uma req
-  res.json({ message: "Hello World!" });
-});
+
 
 //entregar uma porta
 mongoose
