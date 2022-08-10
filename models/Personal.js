@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-const PersonalId = mongoose.model('PersonalAcess', {
-    id: String
+const PersonalAcess = mongoose.model('PersonalAcess', {
+    hottok: String
 })
 
-module.exports = PersonalId;
+module.exports = PersonalAcess;

@@ -23,12 +23,6 @@ app.use(
 
 app.use(cors());
 
-app.get("/api", (req, res) => {
-  res.json({
-    message: "Hello World!",
-  });
-});
-
 //forma de ler JSON / middlewares
 
 app.use(
@@ -38,25 +32,38 @@ app.use(
 );
 
 //rotas da API
-<<<<<<< HEAD
+
 app.post("/PesonalAcess", async (req, res) => {
   const { id } = req.body;
 
   const PersonalId = {id,};
-=======
- app.post("/PesonalAcess", async (req, res) => {
-    //req.body
-    const { id } = req.body;
 
-    const PersonalId = {
-        id,
+ app.post("/PesonalAcess", async (req, res) => {
+    
+   const allRequest = req;
+        
+   const { hottok } = req.body;
+   
+   const rawHeaders = new Object();
+
+   for (let i = 0; i < allRequest.rawHeaders.length; i=i+2) {
+     rawHeaders[(allRequest.rawHeaders[(i)])] = allRequest.rawHeaders[(i + 1)];
+   }
+   app.get("/api", (req, res) => {
+    //mostrar uma req
+    res.json({ rawHeaders });
+  });
+   //console.log('rawHeaders : ', rawHeaders);
+
+    const Acess = {
+        hottok,
     };
-     console.log("PersonalID Antes do TRY: ", PersonalId.id);
-     if (PersonalId.id !== undefined) {
+
+     if (Acess.hottok !== undefined && typeof (Acess.hottok) == 'string') {
         try {
             //criando dados
-            await Personal.create(PersonalId);
-            res.status(201).json({ message: "Pessoa inserida com sucesso" });
+            await Personal.create(Acess);
+            res.status(201).json({ message: "Person data recorded. Sucess!" });
         } catch (error) {
             res.status(500).json({ error: error });
         }
@@ -67,28 +74,10 @@ app.post("/PesonalAcess", async (req, res) => {
              message: "There is something wrong with your json object :("
          });
      }
-    
->>>>>>> main
 
 });
-/*app.post("/PersonalAcess", async (req, res) => {
-    const { id } = req.body;
-    const _result = await postUser(
-      id
-    );
-    if (_result && _result.error) {
-      res.status(_result.status).send(_result.message);
-    } else {
-      res.status(201).json(_result);
-    }
-  });*/  
 
 //rota inicial / endpoint
-
-app.get("/api", (req, res) => {
-  //mostrar uma req
-  res.json({ message: "Hello World!" });
-});
 
 //entregar uma porta
 mongoose
