@@ -1,26 +1,32 @@
 const express = require("express");
 const userModel = require("../models/models");
-const app = express();
-// const app = require("./api")
+// const app = express();
+const router = express.Router();
 
-app.post("/add_user", async(req, res) =>{
+
+router.get("/api", (req, res) => {
+    res.json({
+      message: "Hello World!",
+    });
+  });
+   
+
+router.post("/add_user", async(req, res) =>{
     const user = new userModel(req.body);
     try {
         await user.save();
-        response.send(user);
+        res.send(user);
     } catch (error) {
         res.status(500).send(error);
     }
 });
 
-app.get("/users", async(req,res) => {
+router.get("/users", async(req,res) => {
     const users = await userModel.find({});
-
     try {
-        response.send(users)
+        res.send(users)
     } catch (error) {
-        response.status(500).send(error);
+        res.status(500).send(error);
     }
 });
-
-module.exports = app;
+module.exports=router;
