@@ -20,6 +20,7 @@ app.use(
     tempFileDir: path.join(__dirname, "temp"),
   })
 );
+
 app.use(cors());
 
 app.get("/api", (req, res) => {

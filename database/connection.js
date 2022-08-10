@@ -2,17 +2,19 @@
 
 const { default: mongoose, connect, connection } = require("mongoose");
 
-const {mongoDBcredentials, mongoDBconnection} =  require("../credentials/credentials");
+const {mongoDBcredentials, mongoDBconnectionInfo} =  require("../credentials/credentials");
 
+    
 try{
     mongoose.connect(
-        `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBconnection["cluster"]}.mongodb.net/?retryWrites=true&w=majority `
+        `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBconnectionInfo["cluster"]}.mongodb.net/?retryWrites=true&w=majority `
         );
-} catch (error) {
-    res.status(500).json({ error: error });
+    } catch (error) {
+        console.log(mongoose.connect);
+        console.log("ERROR!");
 }
-const dbConnection = mongoose.connection;
-dbConnection.on("error", console.error.bind(console,"connection error:"));
-dbConnection.once("open", function(){
-    console.log("Connected sucessfully!");
-})
+
+const mongoDBconnection = mongoose.connection;
+
+    
+module.exports=mongoDBconnection
