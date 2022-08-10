@@ -4,12 +4,6 @@ const userModel = require("../models/models");
 const router = express.Router();
 
 
-router.get("/api", (req, res) => {
-    res.json({
-      message: "Hello World!",
-    });
-  });
-   
 
 router.post("/add_user", async(req, res) =>{
     const user = new userModel(req.body);
@@ -30,3 +24,10 @@ router.get("/users", async(req,res) => {
     }
 });
 module.exports=router;
+
+// REMOVER 
+router.get("/api", (req, res) => {
+    res.json({
+      message: "Hello World!",
+    });
+  });

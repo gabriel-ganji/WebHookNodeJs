@@ -11,5 +11,7 @@ const UserSchema = new mongoose.Schema({
     },
 });
 
-const user = mongoose.model("user", UserSchema)
+
+
+const user = mongoose.model("WebhookEvermart", UserSchema)
 module.exports = user;

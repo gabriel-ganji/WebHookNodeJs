@@ -14,6 +14,7 @@ const {mongoDBcredentials, mongoDBconnectionInfo} =  require("../credentials/cre
 const mongoDBconnection = require("../database/connection")
 
 
+
 app.use(Router)
 app.use(express.json());
 app.use(cors());
@@ -21,6 +22,9 @@ app.use(cors());
 mongoDBconnection.on("error", console.error.bind(console,"connection error:"));
 mongoDBconnection.once("open", function(){
   console.log("Connected sucessfully!");
+  // TESTE DE DROP DO BANCO DE DADOS
+  // mongoDBconnection.dropDatabase();
+  // delete mongoose.connection.models['test.personalacesses'];
 });
 
 app.listen(mongoDBconnectionInfo["port"], () => {

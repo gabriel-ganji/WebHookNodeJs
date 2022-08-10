@@ -10,15 +10,15 @@ try{
         `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBconnectionInfo["cluster"]}.mongodb.net/?retryWrites=true&w=majority `,
         {
             useNewUrlParser: true,
-            useUnifiedTopology: true
-          },
-    );
+            useUnifiedTopology: true,
+        },
+        );
     } catch (error) {
         console.log(mongoose.connect);
         console.log("ERROR!");
-}
+    };               
 
 const mongoDBconnection = mongoose.connection;
 
-    
-module.exports=mongoDBconnection
+
+module.exports=mongoDBconnection;
