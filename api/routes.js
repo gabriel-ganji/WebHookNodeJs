@@ -1,6 +1,7 @@
 const express = require("express");
 const userModel = require("../models/models");
 const app = express();
+// const app = require("./api")
 
 app.post("/add_user", async(req, res) =>{
     const user = new userModel(req.body);
