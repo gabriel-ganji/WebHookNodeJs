@@ -3,8 +3,6 @@ const userModel = require("../models/models");
 // const app = express();
 const router = express.Router();
 
-
-
 router.post("/add_user", async(req, res) =>{
     const user = new userModel(req.body);
     try {
@@ -24,10 +22,3 @@ router.get("/users", async(req,res) => {
     }
 });
 module.exports=router;
-
-// REMOVER 
-router.get("/api", (req, res) => {
-    res.json({
-      message: "Hello World!",
-    });
-  });
