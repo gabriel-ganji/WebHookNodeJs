@@ -7,7 +7,7 @@ const {mongoDBcredentials, mongoDBconnectionInfo} =  require("../credentials/cre
     
 try{
     mongoose.connect(
-        `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBconnectionInfo["cluster"]}.mongodb.net/?retryWrites=true&w=majority `,
+        `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBconnectionInfo["cluster"]}.mongodb.net/${mongoDBconnectionInfo["dbname"]}?retryWrites=true `,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,

@@ -3,15 +3,13 @@ const mongoose = require("mongoose")
 const UserSchema = new mongoose.Schema({
     id: {
         type: String,
-        required: true,
+        required: false,
     },
     token: {
         type: String,
-        required: true,
+        required: false,
     },
 });
 
-
-
-const user = mongoose.model("WebhookEvermart", UserSchema)
+const user = mongoose.model("CollectedData", UserSchema);
 module.exports = user;

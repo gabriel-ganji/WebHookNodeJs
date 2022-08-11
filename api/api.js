@@ -8,7 +8,7 @@ var path = require("path");
 
 const Router = require("./routes");
 const mongoose = require("mongoose");
-const Personal = require("../models/Personal");
+const deleteItemById = require("../database/database");
 
 const {mongoDBcredentials, mongoDBconnectionInfo} =  require("../credentials/credentials");
 const mongoDBconnection = require("../database/connection")
@@ -24,6 +24,10 @@ mongoDBconnection.once("open", function(){
   console.log("Connected sucessfully!");
   // TESTE DE DROP DO BANCO DE DADOS
   // mongoDBconnection.dropDatabase();
+  // deleteCollection();
+  // mongoDBconnection.dropCollection("");
+  deleteItemById("62f54bf6aff4f490bf42ddfc");
+  // console.log(mongoDBconnection.collections["webhookevermarts"]);
   // delete mongoose.connection.models['test.personalacesses'];
 });
 
