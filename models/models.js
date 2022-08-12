@@ -3,11 +3,11 @@ const mongoose = require("mongoose")
 const UserSchema = new mongoose.Schema({
     id: {
         type: String,
-        required: false,
+        required: false, // MUDAR PARA TRUE
     },
     token: {
         type: String,
-        required: false,
+        required: false, // MUDAR PARA TRUE
     },
 });
 

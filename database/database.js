@@ -18,6 +18,9 @@ async function deleteCollection(params) {
     }
 }
 
+async function insertData(data){
+    await schema.create({ _id:data });
+}
 // FUNÇÃO PARA TESTE
 async function insertData(){
     await schema.create({ name: 'Masteringjs.io' });
