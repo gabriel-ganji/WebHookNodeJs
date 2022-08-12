@@ -8,26 +8,24 @@ var path = require("path");
 
 const Router = require("./routes");
 const mongoose = require("mongoose");
-const Personal = require("../models/Personal");
+const {deleteItemById,deleteCollection} = require("../database/database");
 
 const {mongoDBcredentials, mongoDBconnectionInfo} =  require("../credentials/credentials");
-const mongoDBconnection = require("../database/connection")
+const mongoDBconnection = require("../database/connection");
 
 
 
-app.use(Router)
+app.use(Router);
 app.use(express.json());
 app.use(cors());
 
 mongoDBconnection.on("error", console.error.bind(console,"connection error:"));
 mongoDBconnection.once("open", function(){
   console.log("Connected sucessfully!");
-  // TESTE DE DROP DO BANCO DE DADOS
-  // mongoDBconnection.dropDatabase();
-  // delete mongoose.connection.models['test.personalacesses'];
 });
 
 app.listen(mongoDBconnectionInfo["port"], () => {
-  console.log(`Server running at port ${mongoDBconnectionInfo["port"]}!`)
+  console.log(`Server running at port ${mongoDBconnectionInfo["port"]}!`);
 });
-
+// deleteCollection();
+// deleteItemById();
