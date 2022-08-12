@@ -1,19 +1,25 @@
-const http = require("http");
-const mongoose = require("mongoose");
-const { hasUncaughtExceptionCaptureCallback } = require("process");
-const mongoDBconnection = require("./connection");
 const schema = require("../models/models");
-
+const mongoDBconnection = require("../database/connection");
 
 async function deleteItemById(ItemId) {
     try{
-        // const entry  = await schema.create({ name: 'Masteringjs.io' });
         await schema.deleteOne({_id:ItemId})
-    //    schema.deleteOne({"_id":ItemId});
     }
     catch(error){
         console.log("Unable to delete item: ", error);
     }
 }
 
-module.exports = deleteItemById;
+async function deleteCollection(params) {
+    try {
+        await schema.collection.drop()
+    } catch (error) {
+        console.log("Unable to drop collection: ", error);
+    }
+}
+
+// FUNÇÃO PARA TESTE
+async function insertData(){
+    await schema.create({ name: 'Masteringjs.io' });
+}
+module.exports ={ deleteItemById, deleteCollection};
