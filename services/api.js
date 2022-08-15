@@ -5,7 +5,7 @@ const fs = require("fs");
 const cors = require("cors");
 var path = require("path");
 
-const Router = require("./routes");
+const Router = require("../routes/routes");
 const mongoose = require("mongoose");
 const {deleteItemById,deleteCollection} = require("../database/database");
 

@@ -9,6 +9,17 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false, // MUDAR PARA TRUE
     },
+    active: { type: Boolean, default: true },
+    createdAt: {
+        type: String,
+        required: true,
+        default: moment().tz("America/Sao_Paulo").format("DD-MM-YYYY HH:mm:ss.SSS"),
+      },
+      updatedAt: {
+        type: String,
+        required: true,
+        default: moment().tz("America/Sao_Paulo").format("DD-MM-YYYY HH:mm:ss.SSS"),
+      },
 });
 
 const user = mongoose.model("collecteddata", UserSchema);
