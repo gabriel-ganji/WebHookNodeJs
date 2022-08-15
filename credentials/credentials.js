@@ -5,7 +5,6 @@ const mongoDBcredentials = {
 };
 const mongoDBconnectionInfo = {
     dbname:"WebhookEvermart",
-    sessionSecret:"dbsdhbchsdcbjhscs25dc",
     cluster:"evermartmongodb.dbkte1c",
     port:9200
 };
