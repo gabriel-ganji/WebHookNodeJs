@@ -3,13 +3,15 @@ const mongoose = require("mongoose")
 const UserSchema = new mongoose.Schema({
     id: {
         type: String,
-        required: false, // MUDAR PARA TRUE
+        required: true
     },
     token: {
         type: String,
-        required: false, // MUDAR PARA TRUE
+        required: true
     },
     active: { type: Boolean, default: true },
+    header: { type: String },
+    body: { type: String },
     createdAt: {
         type: String,
         required: true,
