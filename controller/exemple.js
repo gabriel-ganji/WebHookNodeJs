@@ -4,7 +4,7 @@ const exemplo = async (id, token) => {
   try {
     const _currentUser = await UserSchema.findOne({ id: id });
     if (_currentUser) {
-      return { error: true, message: "O id já está em uso", status: 400 };
+      return { error: true, message: "O id já está em uso, tente novamente", status: 400 };
     }
     if (!id) {
       return {
