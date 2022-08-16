@@ -8,11 +8,19 @@ const urlUuid = createUUID();
 
 const dataObj = { data: '' };
 
+//rota de criação de uuid
+router.get("/", async (req, res) => {
+    const verification = verify(req.params.uuid);
+    res.json(verification);
+});
+
+//rota de emissão de dados do database para o front
 router.get("/:uuid", async (req, res) => {
     const verification = verify(req.params.uuid);
     res.json(verification);
 });
 
+//rota de gravação de dados no data base
 router.post("/:uuid", async (req, res) => {
     const date = new Date();
     
