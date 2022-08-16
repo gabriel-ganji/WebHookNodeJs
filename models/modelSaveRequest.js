@@ -1,3 +1,7 @@
+
+//Modelo que irá guardar o primeiro TOKEN(UUID) mesmo sem body e o header;
+//Modelo que irá armazenar o TOKEN(UUID) com o body e o header;
+
 const mongoose = require("mongoose")
 
 const UserSchema = new mongoose.Schema({
