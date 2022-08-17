@@ -1,17 +1,17 @@
-const userModel = require("../models/modelSaveRequest");
+const userModel = require("../database/models/modelSaveRequest");
+const Acess = require("../database/models/modelSaveRequest");
 
 const getData = function (tokenUUID) {
-
-    //const users = userModel.find({ token: tokenUUID });
-    //return users;
-    console.log('getData');
-    try {
-        const users = userModel.find();
-        return users;
-    } catch (error) {
-        return error;
-    }
-
+    const dataMongoDB = []
+    const dataByToken = Acess.find({ token: tokenUUID }, (error, data) => {
+        if (error) {
+            return error;
+        }
+        else {
+            return data;
+        }
+    });
+    console.log(data);
 }
 
 module.exports = getData;
