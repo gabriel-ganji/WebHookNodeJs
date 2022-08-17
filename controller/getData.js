@@ -2,8 +2,15 @@ const userModel = require("../models/modelSaveRequest");
 
 const getData = function (tokenUUID) {
 
-    const users = userModel.find({ token: tokenUUID });
-    return users;
+    //const users = userModel.find({ token: tokenUUID });
+    //return users;
+    console.log('getData');
+    try {
+        const users = userModel.find({token: tokenUUID});
+        return users;
+    } catch (error) {
+        return error;
+    }
 
 }
 

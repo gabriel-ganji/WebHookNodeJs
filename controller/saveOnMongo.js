@@ -1,7 +1,7 @@
 const save = function (data) {
     //
     console.log("Estamos na função save!"); 
-    console.log(data);
+    console.log(data.body);
     //
     
     //salvar o head e o body e o uuid de data no modelSavedRequest em models/modelSavedRequest;
