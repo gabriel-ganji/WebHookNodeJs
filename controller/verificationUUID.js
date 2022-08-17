@@ -1,8 +1,8 @@
 const createUUID = require("./generateUUID");
 
-const verify = function (uuid) {
+const verify = function (uuid=null) {
     //caso requisição não vier com uuid
-    if (uuid == ' ') {
+    if (uuid === ' ' || uuid === null) {
         //gerando uuid
         const uuid = createUUID();
         //gravar no mongo;
@@ -13,6 +13,7 @@ const verify = function (uuid) {
     } else {
         //extrair dados do mongo com uuid que veio na requisição;
         //return; -> TODOS OS DADOS com tal uuid para o front
+        return 'UUUID ESTÁ VINDO NA URL';
     }
 }
 
