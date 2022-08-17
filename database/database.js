@@ -1,4 +1,4 @@
-const schema = require("../models/models");
+const schema = require("../models/modelSaveRequest");
 const mongoDBconnection = require("../database/connection");
 
 async function deleteItemById(ItemId) {
@@ -19,10 +19,10 @@ async function deleteCollection(params) {
 }
 
 async function insertData(data){
-    await schema.create({ _id:data });
+    await schema.create({ data });
 }
 // FUNÇÃO PARA TESTE
-async function insertData(){
+/*async function insertData(){
     await schema.create({ name: 'Masteringjs.io' });
-}
-module.exports ={ deleteItemById, deleteCollection};
+}*/
+module.exports ={ deleteItemById, deleteCollection, insertData};

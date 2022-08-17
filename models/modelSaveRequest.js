@@ -7,15 +7,16 @@ const mongoose = require("mongoose")
 const UserSchema = new mongoose.Schema({
     id: {
         type: String,
-        required: true
+        required: false
     },
     token: {
         type: String,
-        required: true
+        required: false
     },
     active: { type: Boolean, default: true },
-    header: { type: String },
-    body: { type: String }
+    header: { type: String, require: false },
+    body: { type: String, require: false }
+ 
 });
 
 const user = mongoose.model("collecteddata", UserSchema);
