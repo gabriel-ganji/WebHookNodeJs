@@ -1,7 +1,7 @@
 const time = require("./timePost");
 const saveOnMongo = require("./saveOnMongo");
 
-const dataReq = function (req) {
+const dataReq = function (uuid, req) {
 
     const fullRequest = req;
     const webhookRequest = {
@@ -14,13 +14,13 @@ const dataReq = function (req) {
         header[fullRequest.rawHeaders[i]] = fullRequest.rawHeaders[i + 1];
     }
 
-    header["uuid"] = req.params.uuid;
+    header["uuid"] = uuid;
     header["date"] = time();
 
     webhookRequest.header = header;
     webhookRequest.body = req.body;
     
-    //passando dados para o a função save em controller/saveOnMongo.js
+    //passando dados para a função save em controller/saveOnMongo.js
     const status = saveOnMongo(webhookRequest);
     return status;
 }

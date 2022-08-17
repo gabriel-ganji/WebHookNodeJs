@@ -1,19 +1,19 @@
 const createUUID = require("./generateUUID");
+const handleData = require("./handleData");
+const getData = require("./getData");
 
-const verify = function (uuid=null) {
+const verify = function (uuid=null, req) {
     //caso requisição não vier com uuid
-    if (uuid === ' ' || uuid === null) {
-        //gerando uuid
+    if ( uuid === null) {
+    
         const uuid = createUUID();
-        //gravar no mongo;
-        
-        //retornar uuid para o front
+        handleData(uuid, req);
+
         return uuid;
 
     } else {
-        //extrair dados do mongo com uuid que veio na requisição;
-        //return; -> TODOS OS DADOS com tal uuid para o front
-        return 'UUUID ESTÁ VINDO NA URL';
+        const data = getData(uuid);
+        return data;
     }
 }
 

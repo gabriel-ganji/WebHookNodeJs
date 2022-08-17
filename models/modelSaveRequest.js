@@ -15,17 +15,7 @@ const UserSchema = new mongoose.Schema({
     },
     active: { type: Boolean, default: true },
     header: { type: String },
-    body: { type: String },
-    createdAt: {
-        type: String,
-        required: true,
-        default: moment().tz("America/Sao_Paulo").format("DD-MM-YYYY HH:mm:ss.SSS"),
-      },
-      updatedAt: {
-        type: String,
-        required: true,
-        default: moment().tz("America/Sao_Paulo").format("DD-MM-YYYY HH:mm:ss.SSS"),
-      },
+    body: { type: String }
 });
 
 const user = mongoose.model("collecteddata", UserSchema);
