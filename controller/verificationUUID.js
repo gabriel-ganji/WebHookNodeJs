@@ -10,10 +10,11 @@ const verify = function (uuid=null, req) {
         return uuid;
     //caso venha com uuid
     } else {
-        //verficar se uuid é válido
+        //verficar se uuid é válido < 72 horas
         try {
             const data = getData(uuid);
             return data;
+        //caso não seja valido ou não haja no DB
         } catch {
             verify(null, req);
         }
