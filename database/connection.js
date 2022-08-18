@@ -2,7 +2,7 @@
 
 const { default: mongoose, connect, connection } = require("mongoose");
 
-const {mongoDBcredentials, mongoDBconnectionInfo} =  require("../credentials/credentials");
+const {mongoDBcredentials, mongoDBconnectionInfo} =  require("./credentials/credentials");
 
     
 try{
@@ -22,4 +22,5 @@ try{
 const mongoDBconnection = mongoose.connection;
 
 
-module.exports=mongoDBconnection;
+module.exports = mongoDBconnection;
+

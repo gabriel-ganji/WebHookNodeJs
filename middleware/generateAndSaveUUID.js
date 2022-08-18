@@ -1,3 +1,5 @@
+const handleData = require("../controller/handleData");
+
 const createUUID = function () {
     var dt = new Date().getTime();
     var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
@@ -11,4 +13,11 @@ const createUUID = function () {
     return uuid;
 }
 
-module.exports = createUUID;
+const saveUUID = function (req) {
+
+    const uuid = createUUID();
+    handleData(uuid, req);
+    return uuid;
+}
+
+module.exports = saveUUID;
