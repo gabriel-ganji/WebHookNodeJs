@@ -1,4 +1,4 @@
-const handleData = require("./handleData");
+const handleData = require("../controller/handleData");
 
 const createUUID = function () {
     var dt = new Date().getTime();
@@ -14,9 +14,9 @@ const createUUID = function () {
 }
 
 const saveUUID = function (req) {
-    console.log(req);
+
     const uuid = createUUID();
-    const handle = handleData(uuid, req);
+    handleData(uuid, req);
     return uuid;
 }
 

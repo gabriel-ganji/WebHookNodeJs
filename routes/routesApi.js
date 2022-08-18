@@ -1,27 +1,64 @@
 const express = require("express");
-const verify = require("../controller/verificationUUID");
 const handleData = require("../controller/handleData");
-const generateAndSaveUUID = require("../controller/generateAndSaveUUID");
+const generateAndSaveUUID = require("../middleware/generateAndSaveUUID");
+const getData = require("../middleware/getData");
 const router = express();
 
 router.use(express.json());
 
 //Rota para gerar uuid e armazenar uuid no mongo 
 router.get("/", async (req, res) => { 
-    const uuid = generateAndSaveUUID(req);
-    res.json({ uuid });
+
+    const urluuid = generateAndSaveUUID(req);
+    
+    if (urluuid.length !== 36 || urluuid == undefined) {
+        res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
+    } else{
+        res.status(200).json({ urluuid });
+    }
+
 });
 
 //Emissão de dados do database para o front
 router.get("/:uuid", async (req, res) => {
-    const result = verify(req.params.uuid, req);
-    res.json({result});
+
+    const data = getData(req.params.uuid);
+
+    if (data == "Error") {
+    
+        res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
+
+    } else {
+
+        res.status(200).json({ data });
+    }
+    
 });
 
 //Rota de gravação de dados no data base
 router.post("/:uuid", async (req, res) => {
-    const handle = handleData(req.params.uuid, req);
-    res.json({ handle });
+
+    if (req.params.uuid.length !== 36) {
+
+        res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
+    
+    } else {
+        
+        const data = getData(req.params.uuid);
+        console.log(data);
+
+        if (data == "Error" || data == []) {
+        
+            res.status(400).json({ Error: 400, Type: "Bad Request", message: "O token de sua urluuid não é válido" });
+
+        } else {
+
+            const handle = handleData(req.params.uuid, req);
+            res.status(200).json(handle);
+       
+        }
+    }
+
 });
 
 module.exports = router;
