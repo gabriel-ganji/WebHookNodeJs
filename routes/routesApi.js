@@ -2,7 +2,7 @@ const { json } = require("express");
 const express = require("express");
 const handleData = require("../controller/handleData");
 const generateAndSaveUUID = require("../middleware/generateAndSaveUUID");
-const Acess = require("../database/models/modelSaveRequest");
+const Acess = require("../database/collection");
 const getData = require("../middleware/getData");
 const router = express();
 

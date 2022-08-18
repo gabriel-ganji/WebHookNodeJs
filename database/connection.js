@@ -1,26 +1,10 @@
-// Arquivo que contém a conexão com o banco de dados.
+const { MongoClient } = require("mongodb");
+const { mongoDBcredentials, mongoDBconnectionInfo } = require("./credentials");
 
-const { default: mongoose, connect, connection } = require("mongoose");
+const uri = `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBconnectionInfo["cluster"]}.mongodb.net/${mongoDBconnectionInfo["dbname"]}?retryWrites=true `;
 
-const {mongoDBcredentials, mongoDBconnectionInfo} =  require("./credentials/credentials");
+const client = new MongoClient(uri);
 
-    
-try{
-    mongoose.connect(
-        // `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBconnectionInfo["cluster"]}.mongodb.net/?retryWrites=true `,
-        `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBconnectionInfo["cluster"]}.mongodb.net/${mongoDBconnectionInfo["dbname"]}?retryWrites=true `,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        },
-        );
-} catch (error) {
-    console.log(mongoose.connect);
-    console.log("ERROR!");
-};
+const database = client.db('WebhookEvermart');
 
-const mongoDBconnection = mongoose.connection;
-
-
-module.exports = mongoDBconnection;
-
+module.exports = database;

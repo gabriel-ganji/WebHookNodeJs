@@ -1,5 +1,4 @@
-const database = require("../database/database");
-const Acess = require("../database/models/modelSaveRequest")
+const Acess = require("../database/collection");
 
 const save = function (data) {
     console.log('Estamos em save!');
@@ -11,11 +10,12 @@ const save = function (data) {
     const acess = { token, header, body, created_at };
     
     try {
-        
-        Acess.create(acess);
+        Acess.createIndex({ "created_at": 1 }, { expireAfterSeconds: 259200 });
+        Acess.insertOne(acess);
         return { message: "Dados armazenados com sucesso no MongoDBAtlas"}
     } catch (error) {
         return error
+
     }
 
 }

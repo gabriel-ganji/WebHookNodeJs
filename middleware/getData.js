@@ -1,10 +1,10 @@
-const Acess = require("../database/models/modelSaveRequest");
-
+const database = require("../database/connection");
+const acesses = require("../database/collection");
 const getData = async function (tokenUUID) {
 
-    const dataByToken = await Acess.find({token:tokenUUID});
+    const dataByToken = await acesses.find({ token: tokenUUID }).toArray();
     return dataByToken;
 
-}
+};
 
 module.exports = getData;
