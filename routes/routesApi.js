@@ -45,9 +45,8 @@ router.post("/:uuid", async (req, res) => {
     } else {
         
         const data = getData(req.params.uuid);
-        console.log(data);
 
-        if (data == "Error" || data == []) {
+        if (data == "Error") {
         
             res.status(400).json({ Error: 400, Type: "Bad Request", message: "O token de sua urluuid não é válido" });
 

@@ -6,8 +6,11 @@ const save = function (data) {
     const token = data.header.uuid;
     const header = JSON.stringify(data.header);
     const body = JSON.stringify(data.body);
+    const date = new Date();
+    const created_at = String(date);
+
+    const acess = { token, header, body, created_at };
     
-    const acess = { token, header, body };
     try {
         Acess.create(acess);
         return { message: "Dados armazenados com sucesso no MongoDBAtlas"}
