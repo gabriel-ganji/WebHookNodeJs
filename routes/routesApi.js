@@ -1,6 +1,8 @@
+const { json } = require("express");
 const express = require("express");
 const handleData = require("../controller/handleData");
 const generateAndSaveUUID = require("../middleware/generateAndSaveUUID");
+const Acess = require("../database/models/modelSaveRequest");
 const getData = require("../middleware/getData");
 const router = express();
 
@@ -22,15 +24,14 @@ router.get("/", async (req, res) => {
 //Emissão de dados do database para o front
 router.get("/:uuid", async (req, res) => {
 
-    const data = getData(req.params.uuid);
+    const data = await getData(req.params.uuid);
 
     if (data == "Error") {
     
         res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
 
     } else {
-
-        res.status(200).json({ data });
+        res.status(200).json(data);
     }
     
 });
