@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
     
     if (urluuid.length !== 36 || urluuid == undefined) {
         res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
-    } else{
+    } else {
         res.status(200).json({ urluuid });
     }
 
@@ -26,12 +26,18 @@ router.get("/:uuid", async (req, res) => {
 
     const data = await getData(req.params.uuid);
 
-    if (data == "Error") {
+    if (req.params.uuid.length !== 36) {
     
         res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
 
     } else {
-        res.status(200).json(data);
+        
+        if (data === []) {
+            res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
+        } else {
+            res.status(200).json(data);
+        }
+        
     }
     
 });
@@ -45,10 +51,9 @@ router.post("/:uuid", async (req, res) => {
     
     } else {
         
-        const data = getData(req.params.uuid);
-        console.log(data);
+        const data = await getData(req.params.uuid);
 
-        if (data == "Error" || data == []) {
+        if (data === []) {
         
             res.status(400).json({ Error: 400, Type: "Bad Request", message: "O token de sua urluuid não é válido" });
 

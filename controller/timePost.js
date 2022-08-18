@@ -10,5 +10,4 @@ const dateOfPost = function () {
     return date;
 }
 
-module.exports = dateOfPost; 
-//testing or not ?
+module.exports = dateOfPost;
