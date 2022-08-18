@@ -4,8 +4,8 @@ const Acess = require("../database/models/modelSaveRequest")
 const save = function (data) {
     console.log('Estamos em save!');
     const token = data.header.uuid;
-    const header = JSON.stringify(data.header);
-    const body = JSON.stringify(data.body);
+    const header = data.header;
+    const body = data.body;
     const date = new Date();
     const created_at = String(date);
 
