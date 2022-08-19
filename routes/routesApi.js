@@ -5,6 +5,7 @@ const generateAndSaveUUID = require("../middleware/generateAndSaveUUID");
 const Acess = require("../database/collection");
 const getData = require("../middleware/getData");
 const router = express();
+const deleteItem = express("../middleware/deleteItem");
 
 router.use(express.json());
 
@@ -61,6 +62,35 @@ router.post("/:uuid", async (req, res) => {
 
             const handle = handleData(req.params.uuid, req);
             res.status(200).json(handle);
+       
+        }
+    }
+
+});
+
+router.delete("/:uuid", async (req, res) => {
+
+    const a = deleteItem(req.params.uuid);
+            console.log('a', a);
+            res.status(200).json(a);
+
+    if (req.params.uuid.length !== 36) {
+
+        res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
+    
+    } else {
+        
+        const data = await getData(req.params.uuid);
+
+        if (data === []) {
+        
+            res.status(400).json({ Error: 400, Type: "Bad Request", message: "O token de sua urluuid não é válido" });
+
+        } else {
+
+            const a = deleteItem(req.params.uuid);
+            console.log('a', a);
+            res.status(200).json(a);
        
         }
     }
