@@ -1,19 +1,12 @@
-const Acess = require("../database/collection");
+const acesses = require("../database/collection");
 
-const deleteItens = function (uuid) {
+const deleteItens = async function (uuid) {
     
-    try {
-        
-        console.log('Estamos em delete!');
-        Acess.deleteMany({ token: uuid });
-        
-        return 'Ok';
-
-    } catch (error) {
-       
-        return error;
+    console.log('estamos em delete!');
+ 
+    console.log('Estamos em delete!');
     
-    }
+    await acesses.deleteOne({ token: uuid });
     
 };
 

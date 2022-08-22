@@ -5,7 +5,8 @@ const save = function (data) {
     const token = data.header.uuid;
     const header = data.header;
     const body = data.body;
-    const created_at = new Date();
+    let created_at = new Date();
+    created_at = String(created_at);
 
     const acess = { token, header, body, created_at };
     
