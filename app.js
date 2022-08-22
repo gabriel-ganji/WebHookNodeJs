@@ -10,6 +10,8 @@ app.use(xmlparser());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(bodyParser.text({type:"/"}));
+
 const rotasApi = require("./routes/routesApi");
 
 app.use("/ever", rotasApi);

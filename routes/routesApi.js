@@ -11,33 +11,20 @@ const findSubData = express("../middleware/findSubData");
 
 router.use(express.json());
 
-/*router.get("/searchBy", async (req, res) => {
-    
-    console.log(req.query);
-    
-    try {
-        const _result = await findData(req.query.search);
-        if (_result && _result.error) {
-        res.status(_result.status).send(_result.message);
-        } else {
-        res.status(200).json(_result);
-        }
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});*/
-
 //Rota para gerar uuid e armazenar uuid no mongo
 router.get("/", async (req, res) => {
 
     const urluuid = await generateAndSaveUUID(req);
 
     if (urluuid.length !== 36 || urluuid == undefined) {
+   
         res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
+   
     } else {
-        res.status(200).json( urluuid );
+  
+        res.status(200).json(urluuid);
+  
     }
-
 });
 
 //Emissão de dados do database para o front
@@ -56,9 +43,7 @@ router.get("/:uuid", async (req, res) => {
         } else {
             res.status(200).json(data);
         }
-        
     }
-    
 });
 
 //Rota de gravação de dados no data base
@@ -94,26 +79,5 @@ router.delete("/:uuid", async (req, res) => {
     res.status(200).json({ message: "ok" });
 
 });
-
-/*router.get("/bySubCategory", async (req, res) => {
-    try {
-      if (!req.query && !req.query.subCategory) {
-        res.status(400).send('O parametro "subCategory" é obrigatório');
-        return;
-      }
-      const _result = await findSubData(
-        req.query.subCategory
-      );
-      if (_result &&_result.error) {
-        res.status(_result.status).send(_result.message);
-      } else {
-        res.status(200).json(_result);
-      }
-    } catch (error) {
-      res.status(500).send(error);
-    }
-});*/
-
-
 
 module.exports = router;
