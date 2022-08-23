@@ -6,7 +6,7 @@ const save = function (data) {
     const header = data.header;
     const body = data.body;
     let created_at = new Date();
-    created_at = String(created_at);
+    created_at = created_at;
 
     const acess = { token, header, body, created_at };
     

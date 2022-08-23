@@ -12,20 +12,20 @@ const findSubData = express("../middleware/findSubData");
 router.use(express.json());
 
 //Rota para gerar uuid e armazenar uuid no mongo
-// router.get("/", async (req, res) => {
+ router.get("/", async (req, res) => {
 
-//     const urluuid = await generateAndSaveUUID(req);
+     const urluuid = await generateAndSaveUUID(req);
 
-//     if (urluuid.length !== 36 || urluuid == undefined) {
+     if (urluuid.length !== 36 || urluuid == undefined) {
    
-//         res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
+         res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
    
-//     } else {
+     } else {
   
-//         res.status(200).json(urluuid);
+         res.status(200).json(urluuid);
   
-//     }
-// });
+     }
+});
 router.get("/geturluuid", async(req, res) => {
     const uuid = generateAndSaveUUID(req);
     // console.log(uuid);
