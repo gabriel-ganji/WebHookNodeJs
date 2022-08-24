@@ -68,7 +68,7 @@ router.get("/:uuid", async (req, res) => {
 //Rota de gravação de dados no data base
 router.post("/:uuid", async (req, res) => {
 
-    console.log(req);
+    // console.log(req);
 
     if (req.params.uuid.length !== 36) {
 
@@ -84,7 +84,7 @@ router.post("/:uuid", async (req, res) => {
 
         } else {
 
-            const handle = dataProcessingByUUID(req.params.uuid, req);
+            const handle = dataProcessingByUUID(req.params.uuid, req, "POST");
             res.status(200).json(handle);
        
         }

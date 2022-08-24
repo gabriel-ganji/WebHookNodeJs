@@ -52,7 +52,7 @@ const dataProcessingByUUID = async function (uuid, req, reqType){
     for (let i = 0; i < fullRequest.rawHeaders.length; i += 2) {
         header[fullRequest.rawHeaders[i]] = fullRequest.rawHeaders[i + 1];
     }
-
+    header["TypeReq"] = reqType
     header["uuid"] = uuid;
     header["date"] = new Date();
 
@@ -61,18 +61,19 @@ const dataProcessingByUUID = async function (uuid, req, reqType){
     
 
     const status = saveDataByUUID(webhookRequest);
+    console.log(status);
     return status;
 }
 
 const saveDataByUUID = async function (data){
 
-    const token = data.header.uuid;
+    const _id = data.header.uuid;
     const header = data.header;
     const body = data.body;
     let created_at = new Date();
     created_at = created_at;
     
-    const access_data = { token, header, body, created_at };
+    const access_data = { _id, header, body, created_at };
     
     try {
         access.createIndex({ "created_at": 1 }, { expireAfterSeconds: 259200 });
@@ -82,11 +83,6 @@ const saveDataByUUID = async function (data){
         return error
     }
 }
-// const save = function (data) {
-//     console.log('Estamos em save!');
-
-// const 
-
 
 module.exports={
     getAllDatabyUUID,
