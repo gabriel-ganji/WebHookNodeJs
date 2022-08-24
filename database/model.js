@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 let created_at = new Date();
-    created_at = created_at;
-//old way
-const Access = mongoose.model('Acess', {
+
+const Access = mongoose.model('Access', {
     _id: {type:string, required:true},
     header: {},
     body: {},
-    created_at: {type:Date, required:true, default: new Date(),}
+    createdAt: {
+        type: Date,
+        required: true,
+        default: new Date("<dd-mm-YYYY>"),
+    },
 });
 
 module.exports = Access;

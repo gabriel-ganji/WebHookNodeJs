@@ -1,4 +1,5 @@
 const access = require("../database/collection");
+// const moment = require("moment");
 
 const getAllDatabyUUID = async function (tokenUUID) {
     const data = await access.find({ _id: tokenUUID });
@@ -20,6 +21,7 @@ const generateNewUUID = async function (){
             return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
         }
     );
+    console.log(uuid);
     return uuid;
 };
 
@@ -36,10 +38,62 @@ const deleteUUID = async function (tokenUUID){
     await acesses.deleteOne({ _id: uuid });
 };
 
+const dataProcessingByUUID = async function (uuid, req, reqType){
+
+    const fullRequest = req;
+
+    const webhookRequest = {
+        header: {},
+        body: {}
+    }
+
+    const header = new Object();
+
+    for (let i = 0; i < fullRequest.rawHeaders.length; i += 2) {
+        header[fullRequest.rawHeaders[i]] = fullRequest.rawHeaders[i + 1];
+    }
+
+    header["uuid"] = uuid;
+    header["date"] = new Date();
+
+    webhookRequest.header = header;
+    webhookRequest.body = req.body;
+    
+
+    const status = saveDataByUUID(webhookRequest);
+    return status;
+}
+
+const saveDataByUUID = async function (data){
+
+    const token = data.header.uuid;
+    const header = data.header;
+    const body = data.body;
+    let created_at = new Date();
+    created_at = created_at;
+    
+    const access_data = { token, header, body, created_at };
+    
+    try {
+        access.createIndex({ "created_at": 1 }, { expireAfterSeconds: 259200 });
+        access.insertOne(access_data);
+        return { message: "Dados armazenados com sucesso no MongoDBAtlas"}
+    } catch (error) {
+        return error
+    }
+}
+// const save = function (data) {
+//     console.log('Estamos em save!');
+
+// const 
+
+
 module.exports={
     getAllDatabyUUID,
     getHeaderbyUUID,
     generateNewUUID,
     checkIfUUIDExists,
     deleteUUID,
+    dataProcessingByUUID,
+    saveDataByUUID,
 };

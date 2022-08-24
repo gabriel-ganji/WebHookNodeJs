@@ -8,29 +8,33 @@ const {
     generateNewUUID,
     checkIfUUIDExists,
     deleteUUID,
+    dataProcessingByUUID,
+    saveDataByUUID,
 } = require("../controller/uuid");
 
 router.use(express.json());
 
-router.use(function (req, res, next) {
-    console.log('Time:', Date.now());
-    const uuid = generateNewUUID();
-    next(uuid);
-});
- 
+// router.use(function (req, res, next) {
+//     // console.log('Time:', Date.now());
+//     const uuid = generateNewUUID();
+//     // next(uuid);
+// });
+
 //Rota para gerar uuid e armazenar uuid no mongo
-router.get("/getuuid", async (req, res, next) => {
-     const uuid = generateNewUUID();
+router.get("/getuuid", async (req, res) => {
+    // console.log( req.params.uuid );
+    const uuid = await generateNewUUID();
+    // console.log(uuid);
     //  console.log(JSON.stringify(req.headers));
-     if (uuid.length !== 36 || uuid == undefined) {
-         res.status(400).json({ Error: 400, Type: "Bad Request"});
-     } else {
-         res.status(200).json(uuid);  
-     }
+    if (uuid.length !== 36 || uuid == undefined) {
+        res.status(400).json({ Error: 400, Type: "Bad Request"});
+    } else {
+        res.status(200).json(uuid);  
+    }
 });
 
 router.get("/geturluuid", async(req, res, next) => {
-    const uuid = generateNewUUID();
+    const uuid = await generateNewUUID();
 
     // console.log(uuid);
     if (uuid.length !== 36 || uuid == undefined) {
@@ -80,7 +84,7 @@ router.post("/:uuid", async (req, res) => {
 
         } else {
 
-            const handle = handleData(req.params.uuid, req);
+            const handle = dataProcessingByUUID(req.params.uuid, req);
             res.status(200).json(handle);
        
         }
