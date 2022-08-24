@@ -13,13 +13,24 @@ router.use(express.json());
 
 //Rota para gerar uuid e armazenar uuid no mongo
 
-router.get("/geturluuid", async(req, res) => {
-    const uuid = generateAndSaveUUID(req);
+
+router.get("/", async(req, res) => {
+    const uuid = await generateAndSaveUUID(req);
     // console.log(uuid);
     if (uuid.length !== 36 || uuid == undefined) {
         res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
     } else {
         res.status(200).json( `create-react-app-xi-three-32.vercel.app/${uuid}` );
+    }
+});
+
+router.get("/geturluuid", async(req, res) => {
+    const uuid = await generateAndSaveUUID(req);
+    // console.log(uuid);
+    if (uuid.length !== 36 || uuid == undefined) {
+        res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
+    } else {
+        res.status(200).json( `https://everhooks-web.vercel.app/${uuid}` );
     }
 });
 
