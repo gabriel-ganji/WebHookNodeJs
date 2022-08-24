@@ -20,7 +20,7 @@ router.get("/", async(req, res) => {
     if (uuid.length !== 36 || uuid == undefined) {
         res.status(400).json({ Error: 400, Type: "Bad Request", message: "Algo deu errado, tente novamente." });
     } else {
-        res.status(200).json( `create-react-app-xi-three-32.vercel.app/${uuid}` );
+        res.status(200).json( uuid );
     }
 });
 
