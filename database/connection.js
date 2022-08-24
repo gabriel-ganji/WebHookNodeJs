@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
-const { mongoDBcredentials, mongoDBconnectionInfo } = require("./credentials");
+const { mongoDBcredentials } = require("./credentials");
 
-const uri = `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBconnectionInfo["cluster"]}.mongodb.net/${mongoDBconnectionInfo["dbname"]}?retryWrites=true `;
+const uri = `mongodb+srv://${mongoDBcredentials["username"]}:${mongoDBcredentials["password"]}@${mongoDBcredentials["cluster"]}.mongodb.net/${mongoDBcredentials["dbname"]}?retryWrites=true `;
 
 const client = new MongoClient(uri);
 
