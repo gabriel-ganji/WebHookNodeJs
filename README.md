@@ -1,2 +1,0 @@
-# WebHookNodeJs
-Backend of EverHook

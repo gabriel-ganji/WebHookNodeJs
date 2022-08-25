@@ -2,12 +2,12 @@ const access = require("../database/collection");
 // const moment = require("moment");
 
 const getAllDatabyUUID = async function (tokenUUID) {
-    const data = await access.find({ _id: tokenUUID });
+    const data = access.find({ _id: tokenUUID });
     return data;
 };
 
 const getHeaderbyUUID = async function (tokenUUID) {
-    const data = await access.find({ _id: tokenUUID }, {_id: 0, header});
+    const data = access.find({ _id: tokenUUID }, {_id: 0, header});
     return data;
 };
 
