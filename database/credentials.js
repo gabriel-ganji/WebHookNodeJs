@@ -1,4 +1,3 @@
-
 const mongoDBcredentials = {
     username:"interships",
     password:"y60TGJW5Q8cEJ3Tx",

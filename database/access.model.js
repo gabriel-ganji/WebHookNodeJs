@@ -8,7 +8,7 @@ const Access = mongoose.model('Access', {
     createdAt: {
         type: Date,
         required: true,
-        default: new Date("<dd-mm-YYYY>"),
+        // default: new Date("<dd-mm-YYYY>"),
     },
 });
 

@@ -35,7 +35,7 @@ const checkIfUUIDExists = async function (tokenUUID) {
 };
 
 const deleteUUID = async function (tokenUUID){
-    await acesses.deleteOne({ _id: uuid });
+    await acesses.deleteOne({ _id: tokenUUID });
 };
 
 const dataProcessingByUUID = async function (uuid, req, reqType){
@@ -52,6 +52,7 @@ const dataProcessingByUUID = async function (uuid, req, reqType){
     for (let i = 0; i < fullRequest.rawHeaders.length; i += 2) {
         header[fullRequest.rawHeaders[i]] = fullRequest.rawHeaders[i + 1];
     }
+
     header["TypeReq"] = reqType
     header["uuid"] = uuid;
     header["date"] = new Date();
